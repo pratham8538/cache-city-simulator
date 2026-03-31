@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cache City – Visualizing Cache Working</title>
+  <link rel="stylesheet" href="/src/style.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <!-- 3D Canvas Container -->
+  <div id="canvas-container"></div>
+
+  <!-- UI Overlay -->
+  <div id="ui-layer">
+    <!-- Header / Controls -->
+    <header class="glass-panel top-bar">
+      <h1>🎮 Cache City</h1>
+      <div class="controls-group">
+        <div class="control-item">
+          <label id="lbl-address">Address (0-255)</label>
+          <div class="input-row">
+            <input type="number" id="address-input" min="0" max="255" value="0" />
+            <button id="btn-request">Load</button>
+            <button id="btn-store" class="secondary" style="margin-left: 8px;">Store</button>
+          </div>
+        </div>
+
+        <div class="control-item">
+          <label>Mapping Technique</label>
+          <select id="sel-mapping">
+            <option value="direct">Direct Mapping</option>
+            <option value="fully">Fully Associative</option>
+            <option value="set">Set Associative (2-way)</option>
+          </select>
+        </div>
+
+        <div class="control-item">
+          <label>Replacement Policy</label>
+          <select id="sel-policy">
+            <option value="lru">LRU</option>
+            <option value="fifo">FIFO</option>
+            <option value="lfu">LFU</option>
+          </select>
+        </div>
+
+        <div class="control-item">
+          <div class="btn-group">
+            <button id="btn-reset" class="secondary">Reset</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hardware Config Side Panel -->
+    <div class="glass-panel side-panel">
+      <h3>System Config</h3>
+      <div class="control-item">
+        <label>Memory Blocks</label>
+        <input type="number" id="inp-mem" min="16" max="256" step="1" value="64" />
+      </div>
+      <div class="control-item">
+        <label>Cache Lines</label>
+        <input type="number" id="inp-cache" min="2" max="64" step="1" value="8" />
+      </div>
+      <div class="control-item">
+        <label>Block Size (Words)</label>
+        <input type="number" id="inp-block" min="1" max="16" step="1" value="4" />
+      </div>
+      <button id="btn-apply-hw">Apply</button>
+    </div>
+
+    <!-- Bottom Panels -->
+    <div class="bottom-panels">
+      <!-- Address Visualizer -->
+      <div class="glass-panel address-visualizer">
+        <h3>Address Breakdown</h3>
+        <div class="address-box">
+          <div class="addr-part tag-part">
+            <span class="label">Tag</span>
+            <span class="value" id="val-tag">-</span>
+          </div>
+          <div class="addr-part index-part">
+            <span class="label">Index/Set</span>
+            <span class="value" id="val-index">-</span>
+          </div>
+          <div class="addr-part offset-part">
+            <span class="label">Offset</span>
+            <span class="value" id="val-offset">-</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mapping Explanation -->
+      <div class="glass-panel explanation-panel">
+        <h3>Mapping Explanation</h3>
+        <div class="explanation-content">
+          <p id="mapping-desc" class="mapping-desc">Select a mapping technique to see details.</p>
+          <div class="pros-cons">
+            <div class="pro">
+              <span class="label">Advantages</span>
+              <p id="mapping-adv">-</p>
+            </div>
+            <div class="con">
+              <span class="label">Disadvantages</span>
+              <p id="mapping-dis">-</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Status & Stats -->
+      <div class="glass-panel stats-panel">
+        <div class="status-indicator">
+          <h3>Status</h3>
+          <div id="status-text" class="status idle">IDLE</div>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-box">
+            <span class="label">Accesses</span>
+            <span class="value" id="stat-accesses">0</span>
+          </div>
+          <div class="stat-box">
+            <span class="label">Hits</span>
+            <span class="value hit-color" id="stat-hits">0</span>
+          </div>
+          <div class="stat-box">
+            <span class="label">Misses</span>
+            <span class="value miss-color" id="stat-misses">0</span>
+          </div>
+          <div class="stat-box">
+            <span class="label">Ratio</span>
+            <span class="value" id="stat-ratio">0%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+  <script>
+    // Temporary stub to prevent vite from failing if index.js is missing
+  </script>
+</body>
+
+</html>
