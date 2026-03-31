@@ -14,7 +14,7 @@ export class SceneManager {
         // Camera setup
         this.camera = new THREE.PerspectiveCamera(
             50,
-            window.innerWidth / window.innerHeight,
+            this.container.clientWidth / this.container.clientHeight,
             0.1,
             1000
         );
@@ -22,7 +22,7 @@ export class SceneManager {
 
         // Renderer setup
         this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
         this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         this.container.appendChild(this.renderer.domElement);
 
@@ -110,9 +110,9 @@ export class SceneManager {
     }
 
     onWindowResize() {
-        this.camera.aspect = window.innerWidth / window.innerHeight;
+        this.camera.aspect = this.container.clientWidth / this.container.clientHeight;
         this.camera.updateProjectionMatrix();
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
     }
 
     getRaycaster(mouse) {
